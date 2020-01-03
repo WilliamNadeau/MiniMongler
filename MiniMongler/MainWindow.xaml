@@ -11,6 +11,9 @@
         <DataTemplate DataType="{x:Type views:SearchItemsContext}">
             <views:SearchItemsView></views:SearchItemsView>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type views:HomeContext}">
+            <views:HomeView></views:HomeView>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type views:SelectWorkingDirectoryContext}">
             <views:SelectWorkingDirectoryView></views:SelectWorkingDirectoryView>
         </DataTemplate>

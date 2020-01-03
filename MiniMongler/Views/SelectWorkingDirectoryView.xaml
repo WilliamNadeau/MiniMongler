@@ -13,11 +13,11 @@
                 <!--<Button HorizontalAlignment="Center" Name="ChooseWorkingDirectoryButton" Click="ChooseWorkingDirectoryButton_Click" Content="Choose working directory"></Button>-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="Working directory:"></Label>
-                    <TextBox Name="WorkingDirectoryCheckbox" TextChanged="WorkingDirectoryCheckbox_TextChanged" VerticalAlignment="Center" MinWidth="200"></TextBox>
+                    <TextBox Name="WorkingDirectoryCheckbox" Text="{Binding WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" MinWidth="200"></TextBox>
                 </StackPanel>
-                <TextBlock Visibility="Collapsed" Foreground="Red" Name="ValidationTextBlock" HorizontalAlignment="Center">The chosen directory is not valid or does not exist.</TextBlock>
+                <TextBlock Visibility="{Binding ValidMessageVisibility}" Foreground="Red" Name="ValidationTextBlock" HorizontalAlignment="Center">The chosen directory is not valid or does not exist.</TextBlock>
                 <TextBlock Foreground="Gray" FontSize="8" HorizontalAlignment="Center">You should select a directory that is located within a cloud drive.</TextBlock>
-                <Button Name="SaveButton" Content="Save" Click="SaveButton_Click" HorizontalAlignment="Center"></Button>
+                <Button Name="SaveButton" Command="{Binding SaveCommand}" Content="Save" HorizontalAlignment="Center"></Button>
             </StackPanel>
         </Border>
     </DockPanel>

@@ -6,7 +6,24 @@
              xmlns:local="clr-namespace:MiniMongler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+
+    <StackPanel>
+
+        <Label>Name</Label>
+        <TextBox></TextBox>
+
+        <DockPanel VerticalAlignment="Center" LastChildFill="True">
+            <Label VerticalAlignment="Center" DockPanel.Dock="Left">Add tag</Label>
+
+            <Button DockPanel.Dock="Right">Add</Button>
+
+            <ComboBox SelectedValue="{Binding Mode=OneWayToSource, Path=AddedTag}" IsEditable="True" ItemsSource="{Binding OtherTags}">
+            </ComboBox>
+
+        </DockPanel>
+
+        <Button Command="{Binding SaveCommand}"  Margin="5" Padding="5" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center">Save</Button>
+
+    </StackPanel>
+
 </UserControl>
