@@ -10,17 +10,34 @@
     <StackPanel>
 
         <Label>Name</Label>
-        <TextBox></TextBox>
+        <TextBox Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <DockPanel VerticalAlignment="Center" LastChildFill="True">
             <Label VerticalAlignment="Center" DockPanel.Dock="Left">Add tag</Label>
 
-            <Button DockPanel.Dock="Right">Add</Button>
+            <Button Command="{Binding AddTagCommand}" DockPanel.Dock="Right">Add</Button>
 
-            <ComboBox SelectedValue="{Binding Mode=OneWayToSource, Path=AddedTag}" IsEditable="True" ItemsSource="{Binding OtherTags}">
+            <ComboBox Text="{Binding Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Path=AddedTag}" IsEditable="True" ItemsSource="{Binding OtherTags}">
             </ComboBox>
 
         </DockPanel>
+
+        <ItemsControl Visibility="{Binding ShowTags}" ItemsSource="{Binding Tags}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="{Binding Value}"></TextBlock>
+                            <Button Command="{Binding DeleteCommand}">X</Button>
+
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Visibility="{Binding ShowNoTags}" HorizontalAlignment="Center" Foreground="Gray">No tags</TextBlock>
 
         <Button Command="{Binding SaveCommand}"  Margin="5" Padding="5" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center">Save</Button>
 

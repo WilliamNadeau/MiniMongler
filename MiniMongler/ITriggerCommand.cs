@@ -2,6 +2,6 @@
 
 namespace MiniMongler {
     public interface ITriggerCommand : ICommand {
-        void TriggerPredicateUpdated();
+        void Notify();
     }
 }

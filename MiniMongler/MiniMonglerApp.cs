@@ -29,8 +29,50 @@ namespace MiniMongler {
                 .Select(fileName => File.ReadAllText(fileName))
                 .Select(fileData => JsonConvert.DeserializeObject<Mini>(fileData));
         }
+
+        public void ShowMini(Mini mini) => SwitchContext(new ItemContext(this, mini, GetAllTags()));
         
-        public void ShowAddMini() => SwitchContext(new ItemContext(this, Mini.NewMini()));
+        public void ShowAddMini() => SwitchContext(new ItemContext(this, Mini.NewMini(), GetAllTags()));
+
+        public IEnumerable<string> GetAllTags() => GetAllMinis()
+            .SelectMany(mini => mini.Tags)
+            .Distinct();
+
+        public IEnumerable<Mini> GetAllMinis() => Directory.EnumerateDirectories(WorkingDirectory)
+            .Select(directory => $"{directory}/mini.json")
+            .Where(File.Exists)
+            .Select(File.ReadAllText)
+            .Select(JsonConvert.DeserializeObject<Mini>);
+
+        public void SaveMiniature(Mini miniature) {
+
+            var dir = miniature.GetDirectoryName(WorkingDirectory);
+            if (Directory.Exists(miniature.OldDirectory) && !Directory.Exists(dir)) {
+                Directory.Move(miniature.OldDirectory, dir);
+            } else {
+                EnsureDirectory(dir);
+            }
+
+            miniature.Saved = true;
+            miniature.OldDirectory = dir;
+            var file = miniature.GetFileName(WorkingDirectory);
+            File.WriteAllText(file, JsonConvert.SerializeObject(miniature));
+            ShowSearch();
+        }
+
+        private static void EnsureDirectory(string dir) {
+            if (!Directory.Exists(dir)) {
+                Directory.CreateDirectory(dir);
+            }
+        }
+
+        public void AddPictureToMini(Mini miniature, string fileName) {
+            var dir = miniature.GetDirectoryName(WorkingDirectory);
+            EnsureDirectory(dir);
+            File.Copy(fileName, $"{dir}/{Path.GetFileName(fileName)}");
+        }
+
+        public string WorkingDirectory => GetApplicationData()?.WorkingDirectory;
 
         public void SaveWorkingDirectory(string workingDirectory) {
             Directory.CreateDirectory(ApplicationDirectory);

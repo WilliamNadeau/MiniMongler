@@ -18,7 +18,7 @@ namespace MiniMongler {
             this.execute = execute;
         }
 
-        public void TriggerPredicateUpdated() => CanExecuteChanged?.Invoke(this, new EventArgs());
+        public void Notify() => CanExecuteChanged?.Invoke(this, new EventArgs());
         public bool CanExecute(object parameter) => canExecute(this, parameter);
         public void Execute(object parameter) => execute(this, parameter);
     }

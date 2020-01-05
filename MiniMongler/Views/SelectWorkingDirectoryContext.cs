@@ -25,7 +25,7 @@ namespace MiniMongler.Views {
                 workingDirectory = value;
                 Notify();
                 Validate();
-                SaveCommand.TriggerPredicateUpdated();
+                SaveCommand.Notify();
             }
         }
 

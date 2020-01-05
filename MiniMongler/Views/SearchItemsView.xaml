@@ -7,15 +7,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill="True">
-        <ItemsControl ItemsSource="{Binding Items}">
+        <Button DockPanel.Dock="Top" Command="{Binding AddMiniCommand}"  Margin="10" Padding="10" Background="DarkSeaGreen" HorizontalAlignment="Center" VerticalAlignment="Center">Add a miniature.</Button>
+        <ItemsControl ItemsSource="{Binding Minis}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock>Hello</TextBlock>
-                    </StackPanel>
+                    <Border>
+                        <DockPanel>
+                            <Button Command="{Binding ShowCommand}" VerticalAlignment="Center" DockPanel.Dock="Right">View</Button>
+                            <TextBlock DockPanel.Dock="Top" Text="{Binding Path=Mini.Name}"></TextBlock>
+                            <ItemsControl ItemsSource="{Binding Path=Mini.Tags}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}"></TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DockPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Command="{Binding AddMiniCommand}"  Margin="10" Padding="10" Background="DarkSeaGreen" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center">Add a miniature.</Button>
     </DockPanel>
 </UserControl>
